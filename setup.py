@@ -50,7 +50,7 @@ def required(requirements_file):
 
 
 PLUGIN_ENTRY_POINT = 'ovos-stt-plugin-whispercpp = ovos_stt_plugin_whispercpp:whispercppSTT'
-CONFIG_ENTRY_POINT = 'ovos-stt-plugin-whispercpp.config = ovos_stt_plugin_whispercpp:whispercppSTTConfig'
+CONFIG_ENTRY_POINT = 'ovos-stt-plugin-whispercpp.config = ovos_stt_plugin_whispercpp:WhispercppSTTConfig'
 
 setup(
     name='ovos-stt-plugin-whispercpp',
