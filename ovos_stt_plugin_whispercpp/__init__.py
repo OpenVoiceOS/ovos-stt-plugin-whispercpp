@@ -45,13 +45,12 @@ class WhispercppSTT(STT):
         return model_path
 
     def execute(self, audio, language=None, model=None):
-
         lang = language or self.lang
         if model:
             if not os.path.isfile(model):
                 model = self.get_model(model)
-        else:
-            model = self.model_path
+
+        model = model or self.model_path
 
         with NamedTemporaryFile() as f:
             f.write(audio.get_wav_data())
