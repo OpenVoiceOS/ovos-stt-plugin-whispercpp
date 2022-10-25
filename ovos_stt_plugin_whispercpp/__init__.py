@@ -44,7 +44,7 @@ class WhisperEngine:
 
         # get default whisper parameters and adjust as needed
         self.params = self.whisper.whisper_full_default_params(0)
-        self.params.print_realtime = True
+        self.params.print_realtime = False
         self.params.print_progress = False
         self.params.print_timestamps = False
         self.params.n_threads = os.cpu_count() - 1
@@ -62,19 +62,12 @@ class WhisperEngine:
         return data
 
     def transcribe_wav(self, wav, lang="en"):
-        self.params.language = lang.encode()
-
-        if isinstance(wav, str):
-            with AudioFile(wav) as source:
-                audio = Recognizer().record(source)
-        elif isinstance(wav, AudioData):
-            audio = wav
-        else:
-            raise ValueError(f"invalid audio: {wav}")
-
+        with AudioFile(wav) as source:
+            audio = Recognizer().record(source)
         return self.transcribe_audio(audio, lang)
 
     def transcribe_audio(self, audio, lang="en"):
+        lang = lang.lower().split("-")[0]
         self.params.language = lang.encode()
 
         data = self.audiodata2array(audio)
@@ -91,7 +84,7 @@ class WhisperEngine:
         txt = b""
         for i in range(n_segments):
             txt += self.whisper.whisper_full_get_segment_text(ctypes.c_void_p(self.ctx), i)
-        return txt.decode("utf-8")
+        return txt.decode("utf-8").strip()
 
     def shutdown(self):
         # free the memory
@@ -215,10 +208,7 @@ class WhispercppSTT(STT):
         self.model_folder = self.config.get("model_folder") or f"{xdg_data_home()}/whispercpp"
         model = self.config.get("model")
         if not model:
-            if self.lang.startswith("en"):
-                model = "tiny.en"
-            else:
-                model = "tiny"
+            model = "tiny"
         os.makedirs(self.model_folder, exist_ok=True)
         model_path = self.get_model(model)
         self.engine = WhisperEngine(self.lib, model_path)
@@ -280,9 +270,10 @@ if __name__ == "__main__":
     b = WhispercppSTT()
     from speech_recognition import Recognizer, AudioFile
 
-    with AudioFile("/home/user/PycharmProjects/selene_api/test/test.wav") as source:
+    jfk = "/home/user/whisper.cpp/samples/jfk.wav"
+    with AudioFile(jfk) as source:
         audio = Recognizer().record(source)
 
-    a = b.execute(audio)
-
+    a = b.execute(audio, language="en")
     print(a)
+
