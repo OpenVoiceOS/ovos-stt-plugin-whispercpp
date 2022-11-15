@@ -1,5 +1,19 @@
 # Changelog
 
+## [Unreleased](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/tree/HEAD)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/compare/V0.0.0a5...HEAD)
+
+**Implemented enhancements:**
+
+- proper python bindings [\#2](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/issues/2)
+- do not write temp file [\#1](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/issues/1)
+- Python bindings [\#3](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/pull/3) ([JarbasAl](https://github.com/JarbasAl))
+
+## [V0.0.0a5](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/tree/V0.0.0a5) (2022-11-15)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/compare/V0.0.0a4...V0.0.0a5)
+
 ## [V0.0.0a4](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/tree/V0.0.0a4) (2022-10-25)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/compare/V0.0.0a3...V0.0.0a4)
