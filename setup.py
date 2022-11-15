@@ -49,7 +49,7 @@ def required(requirements_file):
                 if pkg.strip() and not pkg.startswith("#")]
 
 
-PLUGIN_ENTRY_POINT = 'ovos-stt-plugin-whispercpp = ovos_stt_plugin_whispercpp:whispercppSTT'
+PLUGIN_ENTRY_POINT = 'ovos-stt-plugin-whispercpp = ovos_stt_plugin_whispercpp:WhispercppSTT'
 CONFIG_ENTRY_POINT = 'ovos-stt-plugin-whispercpp.config = ovos_stt_plugin_whispercpp:WhispercppSTTConfig'
 
 setup(
