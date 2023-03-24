@@ -1,98 +1,11 @@
-import ctypes
-import os
-import pathlib
-
 # this is needed to read the WAV file properly
 import numpy
-import requests
 from ovos_plugin_manager.templates.stt import STT
-from ovos_utils.log import LOG
-from ovos_utils.xdg_utils import xdg_data_home
+from pywhispercpp.model import Model as WhisperEngine
 from speech_recognition import AudioData
 
 
-# this needs to match the C struct in whisper.h
-class WhisperFullParams(ctypes.Structure):
-    _fields_ = [
-        ("strategy", ctypes.c_int),
-        ("n_threads", ctypes.c_int),
-        ("offset_ms", ctypes.c_int),
-        ("translate", ctypes.c_bool),
-        ("no_context", ctypes.c_bool),
-        ("print_special_tokens", ctypes.c_bool),
-        ("print_progress", ctypes.c_bool),
-        ("print_realtime", ctypes.c_bool),
-        ("print_timestamps", ctypes.c_bool),
-        ("language", ctypes.c_char_p),
-        ("greedy", ctypes.c_int * 1),
-    ]
-
-
-class WhisperEngine:
-    def __init__(self, libname, model_path):
-        # load library and model
-        self.libname = pathlib.Path().absolute() / libname
-        self.whisper = ctypes.CDLL(libname)
-
-        # tell Python what are the return types of the functions
-        self.whisper.whisper_init.restype = ctypes.c_void_p
-        self.whisper.whisper_full_default_params.restype = WhisperFullParams
-        self.whisper.whisper_full_get_segment_text.restype = ctypes.c_char_p
-
-        # initialize whisper.cpp context
-        self.ctx = self.whisper.whisper_init(model_path.encode("utf-8"))
-
-        # get default whisper parameters and adjust as needed
-        self.params = self.whisper.whisper_full_default_params(0)
-        self.params.print_realtime = False
-        self.params.print_progress = False
-        self.params.print_timestamps = False
-        self.params.n_threads = os.cpu_count() - 1
-        self.params.translate = False
-
-    def audiodata2array(self, audio_data):
-        assert isinstance(audio_data, AudioData)
-        # Convert buffer to float32 using NumPy
-        audio_as_np_int16 = numpy.frombuffer(audio_data.get_wav_data(), dtype=numpy.int16)
-        audio_as_np_float32 = audio_as_np_int16.astype(numpy.float32)
-
-        # Normalise float32 array so that values are between -1.0 and +1.0
-        max_int16 = 2 ** 15
-        data = audio_as_np_float32 / max_int16
-        return data
-
-    def transcribe_wav(self, wav, lang="en"):
-        with AudioFile(wav) as source:
-            audio = Recognizer().record(source)
-        return self.transcribe_audio(audio, lang)
-
-    def transcribe_audio(self, audio, lang="en"):
-        lang = lang.lower().split("-")[0]
-        self.params.language = lang.encode()
-
-        data = self.audiodata2array(audio)
-
-        # run the inference
-        result = self.whisper.whisper_full(ctypes.c_void_p(self.ctx), self.params,
-                                           data.ctypes.data_as(ctypes.POINTER(ctypes.c_float)),
-                                           len(data))
-        if result != 0:
-            raise RuntimeError(f"Error: {result}")
-
-        # print results from Python
-        n_segments = self.whisper.whisper_full_n_segments(ctypes.c_void_p(self.ctx))
-        txt = b""
-        for i in range(n_segments):
-            txt += self.whisper.whisper_full_get_segment_text(ctypes.c_void_p(self.ctx), i)
-        return txt.decode("utf-8").strip()
-
-    def shutdown(self):
-        # free the memory
-        self.whisper.whisper_free(ctypes.c_void_p(self.ctx))
-
-
 class WhispercppSTT(STT):
-    DOWNLOAD_URL = "https://ggml.ggerganov.com/ggml-model-whisper-{model}.bin"
     MODELS = ("tiny.en", "tiny", "base.en", "base", "small.en", "small", "medium.en", "medium", "large")
     LANGUAGES = {
         "en": "english",
@@ -198,46 +111,41 @@ class WhispercppSTT(STT):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        lib = self.config.get("lib") or "~/.local/bin/libwhisper.so"
-        self.lib = os.path.expanduser(lib)
-        # self.bin = os.path.expanduser("~/whisper.cpp/main")
-        if not os.path.isfile(self.lib):
-            LOG.error("you need to provicde libwhisper.so, please follow the README.md instructions")
-            raise ImportError("libwhisper.so not found")
-
-        self.model_folder = self.config.get("model_folder") or f"{xdg_data_home()}/whispercpp"
         model = self.config.get("model")
         if not model:
-            model = "tiny"
-        os.makedirs(self.model_folder, exist_ok=True)
-        model_path = self.get_model(model)
-        self.engine = WhisperEngine(self.lib, model_path)
+            model = "base"
+        assert model in self.MODELS  # TODO - better error handling
 
-    def get_model(self, model_name):
-        if os.path.isfile(model_name):
-            return model_name
-        if model_name not in self.MODELS:
-            raise ValueError(f"unknown model for Whisper: {model_name}")
-        model_path = f"{self.model_folder}/{model_name}"
-        if not os.path.isfile(model_path):
-            url = self.DOWNLOAD_URL.format(model=model_name)
-            LOG.info(f"Downloading {url}")
-            data = requests.get(url).content
-            with open(model_path, "wb") as f:
-                f.write(data)
-        return model_path
+        self.engine = WhisperEngine(model,
+                                    log_level=self.config.get("log_level", "WARNING"),
+                                    language="auto",
+                                    print_realtime=False,
+                                    print_progress=False,
+                                    print_timestamps=False,
+                                    single_segment=True)
+        #  print(self.engine.get_params())  # TODO expose more of these above
+
+    def audiodata2array(self, audio_data):
+        assert isinstance(audio_data, AudioData)
+        # Convert buffer to float32 using NumPy
+        audio_as_np_int16 = numpy.frombuffer(audio_data.get_wav_data(), dtype=numpy.int16)
+        audio_as_np_float32 = audio_as_np_int16.astype(numpy.float32)
+
+        # Normalise float32 array so that values are between -1.0 and +1.0
+        max_int16 = 2 ** 15
+        data = audio_as_np_float32 / max_int16
+        return data
 
     def execute(self, audio, language=None):
         lang = language or self.lang
-        return self.engine.transcribe_audio(audio, lang)
+        lang = lang.lower().split("-")[0]
+        if lang not in self.available_languages:
+            lang = "auto"  # TODO - raise error instead ?
+        return self.engine.transcribe(self.audiodata2array(audio), language=lang)[0].text
 
     @property
     def available_languages(self) -> set:
-        return set(self.LANGUAGES.keys())
-
-    def __del__(self):
-        if self.engine:
-            self.engine.shutdown()
+        return set(self.engine.available_languages())
 
 
 WhispercppSTTConfig = {
@@ -276,4 +184,3 @@ if __name__ == "__main__":
 
     a = b.execute(audio, language="en")
     print(a)
-
