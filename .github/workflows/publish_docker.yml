@@ -1,6 +1,7 @@
 name: Publish whispercpp STT Container
 on:
   workflow_dispatch:
+  push:
 
 env:
   REGISTRY: ghcr.io
