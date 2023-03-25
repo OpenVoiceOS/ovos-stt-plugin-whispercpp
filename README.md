@@ -1,6 +1,6 @@
 ## Description
 
-Mycroft STT plugin for [whispercpp](https://github.com/ggerganov/whisper.cpp)
+OpenVoiceOS STT plugin for [whispercpp](https://github.com/ggerganov/whisper.cpp)
 
 High-performance inference of [OpenAI's Whisper](https://github.com/openai/whisper) automatic speech recognition (ASR) model:
 
