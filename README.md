@@ -26,7 +26,6 @@ available models are `"tiny.en", "tiny", "base.en", "base", "small.en", "small",
   "stt": {
     "module": "ovos-stt-plugin-whispercpp",
     "ovos-stt-plugin-whispercpp": {
-        "lib": "~/.local/bin/libwhisper.so",
         "model": "tiny"
     }
   }
