@@ -1,8 +1,8 @@
 # Changelog
 
-## [Unreleased](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/tree/HEAD)
+## [V0.0.0a7](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/tree/V0.0.0a7) (2023-03-24)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/compare/V0.0.0a6...HEAD)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/compare/V0.0.0a6...V0.0.0a7)
 
 **Implemented enhancements:**
 
