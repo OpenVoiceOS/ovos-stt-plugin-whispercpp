@@ -2,7 +2,8 @@
 import numpy
 from ovos_plugin_manager.templates.stt import STT
 from pywhispercpp.model import Model as WhisperEngine
-from speech_recognition import AudioData
+from ovos_plugin_manager.utils.audio import AudioData, AudioFile
+from typing import Optional
 
 
 class WhispercppSTT(STT):
@@ -136,7 +137,7 @@ class WhispercppSTT(STT):
         data = audio_as_np_float32 / max_int16
         return data
 
-    def execute(self, audio, language=None):
+    def execute(self, audio: AudioData, language: Optional[str]=None):
         lang = language or self.lang
         lang = lang.lower().split("-")[0]
         if lang not in self.available_languages:
@@ -176,11 +177,10 @@ WhispercppSTTConfig = {
 
 if __name__ == "__main__":
     b = WhispercppSTT()
-    from speech_recognition import Recognizer, AudioFile
 
     jfk = "/home/user/whisper.cpp/samples/jfk.wav"
     with AudioFile(jfk) as source:
-        audio = Recognizer().record(source)
+        audio = source.read()
 
     a = b.execute(audio, language="en")
     print(a)
