@@ -1,8 +1,8 @@
 # Changelog
 
-## [0.0.1a2](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/tree/0.0.1a2) (2026-02-01)
+## [0.0.1a3](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/tree/0.0.1a3) (2026-02-01)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/compare/V0.0.0a8...0.0.1a2)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/compare/V0.0.0a8...0.0.1a3)
 
 **Merged pull requests:**
 
