@@ -36,7 +36,6 @@ available models are `"tiny.en", "tiny", "base.en", "base", "small.en", "small",
 
 Models will be autodownloaded to `~/.local/share/pywhispercpp/models/{model_name}` when plugin is loaded
 
-
 Memory usage
 
 | Model  | Disk   | Mem     |
@@ -48,10 +47,3 @@ Memory usage
 | large  | 2.9 GB | ~4.7 GB |
 
 
-## Docker
-
-This plugin can be used together with [ovos-stt-http-server](https://github.com/OpenVoiceOS/ovos-stt-http-server) 
-
-```bash
-docker run -p 8080:8080 ghcr.io/openvoiceos/whisper-stt-http-server:master
-```

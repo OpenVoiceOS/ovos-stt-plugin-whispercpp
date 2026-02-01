@@ -1,5 +1,3 @@
-# this is needed to read the WAV file properly
-import numpy
 from ovos_plugin_manager.templates.stt import STT
 from pywhispercpp.model import Model as WhisperEngine
 from ovos_plugin_manager.utils.audio import AudioData, AudioFile
@@ -118,7 +116,6 @@ class WhispercppSTT(STT):
         assert model in self.MODELS  # TODO - better error handling
 
         self.engine = WhisperEngine(model,
-                                    log_level=self.config.get("log_level", "WARNING"),
                                     language="auto",
                                     print_realtime=False,
                                     print_progress=False,
@@ -126,23 +123,12 @@ class WhispercppSTT(STT):
                                     single_segment=True)
         #  print(self.engine.get_params())  # TODO expose more of these above
 
-    def audiodata2array(self, audio_data):
-        assert isinstance(audio_data, AudioData)
-        # Convert buffer to float32 using NumPy
-        audio_as_np_int16 = numpy.frombuffer(audio_data.get_wav_data(), dtype=numpy.int16)
-        audio_as_np_float32 = audio_as_np_int16.astype(numpy.float32)
-
-        # Normalise float32 array so that values are between -1.0 and +1.0
-        max_int16 = 2 ** 15
-        data = audio_as_np_float32 / max_int16
-        return data
-
     def execute(self, audio: AudioData, language: Optional[str]=None):
         lang = language or self.lang
         lang = lang.lower().split("-")[0]
         if lang not in self.available_languages:
             lang = "auto"  # TODO - raise error instead ?
-        return self.engine.transcribe(self.audiodata2array(audio), language=lang)[0].text
+        return self.engine.transcribe(audio.get_np_float32(), language=lang)[0].text
 
     @property
     def available_languages(self) -> set:
@@ -178,7 +164,7 @@ WhispercppSTTConfig = {
 if __name__ == "__main__":
     b = WhispercppSTT()
 
-    jfk = "/home/user/whisper.cpp/samples/jfk.wav"
+    jfk = "/home/miro/PycharmProjects/ovos-stt-plugin-vosk/jfk.wav"
     with AudioFile(jfk) as source:
         audio = source.read()
 
