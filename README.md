@@ -1,6 +1,6 @@
 ## Description
 
-Mycroft STT plugin for [whispercpp](https://github.com/ggerganov/whisper.cpp)
+OpenVoiceOS STT plugin for [whispercpp](https://github.com/ggerganov/whisper.cpp)
 
 High-performance inference of [OpenAI's Whisper](https://github.com/openai/whisper) automatic speech recognition (ASR) model:
 
@@ -17,27 +17,33 @@ High-performance inference of [OpenAI's Whisper](https://github.com/openai/whisp
 
 `pip install ovos-stt-plugin-whispercpp`
 
+
 ## Configuration
 
-You need to download and compile whispercpp from source, provide the path to the executable in the config
-
-follow instructions here https://github.com/ggerganov/whisper.cpp
+available models are `"tiny.en", "tiny", "base.en", "base", "small.en", "small", "medium.en", "medium", "large"`
 
 ```json
   "stt": {
     "module": "ovos-stt-plugin-whispercpp",
     "ovos-stt-plugin-whispercpp": {
-        "bin": "/home/user/.local/bin/whispercpp",
         "model": "tiny"
     }
   }
  
 ```
 
-## Docker
+## Models
 
-This plugin can be used together with [ovos-stt-http-server](https://github.com/OpenVoiceOS/ovos-stt-http-server) 
+Models will be autodownloaded to `~/.local/share/pywhispercpp/models/{model_name}` when plugin is loaded
 
-```bash
-docker run -p 8080:8080 ghcr.io/openvoiceos/whisper-stt-http-server:master
-```
+Memory usage
+
+| Model  | Disk   | Mem     |
+| ---    | ---    | ---     |
+| tiny   |  75 MB | ~280 MB |
+| base   | 142 MB | ~430 MB |
+| small  | 466 MB | ~1.0 GB |
+| medium | 1.5 GB | ~2.6 GB |
+| large  | 2.9 GB | ~4.7 GB |
+
+
