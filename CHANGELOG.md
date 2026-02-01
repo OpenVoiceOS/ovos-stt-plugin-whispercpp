@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.0.1a2](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/tree/0.0.1a2) (2026-02-01)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/compare/V0.0.0a8...0.0.1a2)
+
+**Merged pull requests:**
+
+- chore\(deps\): update actions/checkout action to v6 [\#21](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/pull/21) ([renovate[bot]](https://github.com/apps/renovate))
+- refactor: modernize/drop speech\_recognition [\#19](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/pull/19) ([JarbasAl](https://github.com/JarbasAl))
+- chore\(deps\): update actions/setup-python action to v6 [\#15](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/pull/15) ([renovate[bot]](https://github.com/apps/renovate))
+- chore\(deps\): update actions/checkout action to v6 [\#14](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/pull/14) ([renovate[bot]](https://github.com/apps/renovate))
+- Configure Renovate [\#7](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/pull/7) ([renovate[bot]](https://github.com/apps/renovate))
+
+## [V0.0.0a8](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/tree/V0.0.0a8) (2023-03-25)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/compare/V0.0.0a7...V0.0.0a8)
+
 ## [V0.0.0a7](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/tree/V0.0.0a7) (2023-03-24)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/compare/V0.0.0a6...V0.0.0a7)
