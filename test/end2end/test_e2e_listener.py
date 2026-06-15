@@ -6,6 +6,7 @@ at ~/.local/share/pywhispercpp/models/. Subsequent runs are fully offline.
 
 Fixture: test/fixtures/command.wav — 16 kHz mono, speech "what time is it in london".
 """
+import importlib.util
 import os
 from pathlib import Path
 
@@ -22,6 +23,14 @@ FIXTURE = Path(__file__).parent / "fixtures" / "command.wav"
 # These tokens must appear in the transcript produced by the tiny model for
 # "what time is it in london".
 EXPECTED_TOKENS = {"time", "london"}
+
+# The MiniListener pipeline needs ovos-dinkum-listener at runtime; skip the
+# pipeline test where it is unavailable (the dedicated ovoscope workflow
+# installs the test extras and exercises it for real).
+requires_dinkum = pytest.mark.skipif(
+    importlib.util.find_spec("ovos_dinkum_listener") is None,
+    reason="ovos-dinkum-listener not installed",
+)
 
 
 @pytest.fixture(scope="module")
@@ -55,6 +64,7 @@ def test_direct_transcription(stt):
 # 2. Through the listener
 # ---------------------------------------------------------------------------
 
+@requires_dinkum
 def test_listener_utterance(stt):
     """MiniListener.listen() emits recognizer_loop:utterance with non-empty text."""
     listener = get_mini_listener(stt_instance=stt)
