@@ -1,53 +1,20 @@
 # Changelog
 
-## [0.0.1a3](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/tree/0.0.1a3) (2026-02-01)
+## [0.0.2a2](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/tree/0.0.2a2) (2026-08-01)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/compare/V0.0.0a8...0.0.1a3)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/compare/0.0.2a1...0.0.2a2)
 
 **Merged pull requests:**
 
-- chore\(deps\): update actions/checkout action to v6 [\#21](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/pull/21) ([renovate[bot]](https://github.com/apps/renovate))
-- refactor: modernize/drop speech\_recognition [\#19](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/pull/19) ([JarbasAl](https://github.com/JarbasAl))
-- chore\(deps\): update actions/setup-python action to v6 [\#15](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/pull/15) ([renovate[bot]](https://github.com/apps/renovate))
-- chore\(deps\): update actions/checkout action to v6 [\#14](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/pull/14) ([renovate[bot]](https://github.com/apps/renovate))
-- Configure Renovate [\#7](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/pull/7) ([renovate[bot]](https://github.com/apps/renovate))
+- docs: rewrite README in Simplified Technical English [\#27](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/pull/27) ([JarbasAl](https://github.com/JarbasAl))
 
-## [V0.0.0a8](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/tree/V0.0.0a8) (2023-03-25)
+## [0.0.2a1](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/tree/0.0.2a1) (2026-06-15)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/compare/V0.0.0a7...V0.0.0a8)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/compare/0.0.1...0.0.2a1)
 
-## [V0.0.0a7](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/tree/V0.0.0a7) (2023-03-24)
+**Merged pull requests:**
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/compare/V0.0.0a6...V0.0.0a7)
-
-**Implemented enhancements:**
-
-- proper python bindings [\#2](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/issues/2)
-- do not write temp file [\#1](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/issues/1)
-
-## [V0.0.0a6](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/tree/V0.0.0a6) (2022-11-15)
-
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/compare/V0.0.0a5...V0.0.0a6)
-
-**Implemented enhancements:**
-
-- Python bindings [\#3](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/pull/3) ([JarbasAl](https://github.com/JarbasAl))
-
-## [V0.0.0a5](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/tree/V0.0.0a5) (2022-11-15)
-
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/compare/V0.0.0a4...V0.0.0a5)
-
-## [V0.0.0a4](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/tree/V0.0.0a4) (2022-10-25)
-
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/compare/V0.0.0a3...V0.0.0a4)
-
-## [V0.0.0a3](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/tree/V0.0.0a3) (2022-10-24)
-
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/compare/V0.0.0a2...V0.0.0a3)
-
-## [V0.0.0a2](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/tree/V0.0.0a2) (2022-10-24)
-
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/compare/6eb75bc5005babc7ff36cc83ab192ea715b3f34b...V0.0.0a2)
+- test: ovoscope listener e2e \(real whisper.cpp STT\) [\#24](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/pull/24) ([JarbasAl](https://github.com/JarbasAl))
 
 
 
