@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.2a3](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/tree/0.0.2a3) (2026-09-26)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/compare/0.0.2a2...0.0.2a3)
+
+**Merged pull requests:**
+
+- Update dependency pytest to v9 [\#25](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/pull/25) ([renovate[bot]](https://github.com/apps/renovate))
+
 ## [0.0.2a2](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/tree/0.0.2a2) (2026-08-01)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp/compare/0.0.2a1...0.0.2a2)
